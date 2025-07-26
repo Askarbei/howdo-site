@@ -1,6 +1,9 @@
 .app-container {
   text-align: center;
   width: 100%;
+  background-color: #f0f2f5; /* Светлый фон для всей страницы */
+  color: #333; /* Темный текст по умолчанию */
+  min-height: 100vh;
 }
 
 .app-header {
@@ -8,62 +11,95 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #333;
-  color: white;
+  background-color: #ffffff; /* Белая шапка */
+  color: #333;
   width: calc(100% - 4rem);
   position: fixed;
   top: 0;
   left: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Тень для шапки */
+  z-index: 100;
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #4a90e2; /* Синий цвет для логотипа */
 }
 
 .app-header nav a {
-  margin: 0 1rem;
-  color: white;
+  margin: 0 1.5rem;
+  color: #555;
   text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.app-header nav a:hover {
+  color: #4a90e2;
 }
 
 .auth-button {
-  background-color: #5a67d8;
+  background-color: #4a90e2;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 20px; /* Более круглые кнопки */
   cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+  background-color: #357abd;
 }
 
 .main-content {
-  padding-top: 100px; /* To offset the fixed header */
-  height: 60vh;
+  padding-top: 150px; /* Больше отступ от шапки */
+  height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.cta-button {
-  background-color: #5a67d8;
-  color: white;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 1rem;
+.main-content h1 {
+  font-size: 3.5rem;
+  color: #333;
+  margin-bottom: 1rem;
 }
 
-/* Modal Styles */
+.main-content p {
+  font-size: 1.2rem;
+  color: #666;
+  max-width: 600px;
+}
+
+.cta-button {
+  background-color: #4a90e2;
+  color: white;
+  padding: 1rem 2.5rem;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 2rem;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+}
+
+/* Стили для модального окна */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,68 +107,95 @@
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: #ffffff;
   color: #333;
-  padding: 2rem;
-  border-radius: 10px;
-  width: 50%;
-  max-width: 600px;
+  padding: 2.5rem;
+  border-radius: 15px;
+  width: 60%;
+  max-width: 700px;
   position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  text-align: left;
 }
 
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 2rem;
   cursor: pointer;
+  color: #aaa;
+  transition: color 0.3s;
+}
+
+.close-button:hover {
+    color: #333;
 }
 
 .modal-content h2 {
   margin-top: 0;
+  color: #4a90e2;
+  margin-bottom: 1.5rem;
 }
 
 .modal-content input {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  width: calc(100% - 22px);
+  padding: 12px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
   border: 1px solid #ccc;
+  font-size: 1rem;
 }
 
 .modal-content button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
   margin-right: 10px;
+  transition: background-color 0.3s;
 }
 
-/* Task List and API Response */
+.modal-content button:hover {
+    background-color: #357abd;
+}
+
+/* Стили для списка задач и ответа API */
 .task-list-container, .api-response-container {
-    width: 60%;
+    width: 70%;
     margin: 2rem auto;
-    padding: 1rem;
-    border: 1px solid #444;
-    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
     text-align: left;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .task-list {
-    list-style-type: disc;
-    padding-left: 20px;
+    list-style-type: none;
+    padding-left: 0;
 }
 
 .task-item {
-    background-color: #3a3a3a;
-    margin-bottom: 8px;
-    padding: 10px;
-    border-radius: 4px;
+    background-color: #f7f7f7;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #4a90e2;
 }
 
 .api-response-box {
-    background-color: #2a2a2a;
+    background-color: #2d2d2d;
+    color: #f0f0f0;
     padding: 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
     white-space: pre-wrap;
     word-wrap: break-word;
-    font-family: monospace;
+    font-family: 'Courier New', Courier, monospace;
 }
