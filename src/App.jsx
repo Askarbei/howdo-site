@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Header from './components/Header';
-import HomePage from './components/HomePage';
-import Dashboard from './components/Dashboard';
-import AuthModal from './components/AuthModal';
+import Header from './components/Header.jsx';
+import HomePage from './components/HomePage.jsx';
+import Dashboard from './components/Dashboard.jsx';
+import AuthModal from './components/AuthModal.jsx';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
