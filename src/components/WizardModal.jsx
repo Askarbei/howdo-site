@@ -36,14 +36,29 @@ const WizardModal = ({ onClose }) => {
 
   const handleFinish = async () => {
     try {
+      // Получаем userId из localStorage (где он сохраняется после логина)
+      const userData = JSON.parse(localStorage.getItem('user') || '{}');
+      const userId = userData.id;
+
+      if (!userId) {
+        alert('Ошибка: пользователь не авторизован');
+        return;
+      }
+
+      // Преобразуем answers в правильный формат для backend
+      const formattedAnswers = {};
+      Object.keys(answers).forEach((key, index) => {
+        formattedAnswers[`q${parseInt(key) + 1}`] = answers[key];
+      });
+
       const response = await fetch('https://api.howdo.it.com/api/wizard', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          type: selectedType,
-          answers: answers
+          userId: userId,           // ← ДОБАВЛЕНО!
+          answers: formattedAnswers // ← ИСПРАВЛЕНО!
         } ),
       });
 
@@ -51,10 +66,12 @@ const WizardModal = ({ onClose }) => {
         alert('Стандарт создан успешно!');
         onClose();
       } else {
-        alert('Ошибка создания стандарта');
+        const errorData = await response.json();
+        alert(`Ошибка создания стандарта: ${errorData.error || 'Неизвестная ошибка'}`);
       }
     } catch (error) {
       alert('Ошибка подключения к серверу');
+      console.error('Error:', error);
     }
   };
 
