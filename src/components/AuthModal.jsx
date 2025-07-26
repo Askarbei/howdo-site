@@ -30,6 +30,10 @@ const AuthModal = ({ onClose, onSuccess }) => {
       const data = await response.json();
 
       if (response.ok) {
+        // ✅ ИСПРАВЛЕНИЕ: Сохраняем данные пользователя в localStorage
+        if (data.user) {
+          localStorage.setItem('user', JSON.stringify(data.user));
+        }
         onSuccess(data);
       } else {
         alert(data.error || 'Ошибка авторизации');
