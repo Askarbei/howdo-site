@@ -1,29 +1,33 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
-// Main App Component
+// Это наше основное приложение
 function App() {
+  // Состояния для управления модальными окнами и аутентификацией
   const [isWizardOpen, setWizardOpen] = useState(false);
   const [isAuthOpen, setAuthOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [apiResponse, setApiResponse] = useState('');
 
+  // Функции для открытия и закрытия модальных окон
   const openWizard = () => setWizardOpen(true);
   const closeWizard = () => setWizardOpen(false);
   const openAuth = () => setAuthOpen(true);
   const closeAuth = () => setAuthOpen(false);
 
+  // Функция для "входа в систему"
   const handleLogin = () => {
     setIsAuthenticated(true);
     closeAuth();
   };
 
+  // Функция для "создания задач"
   const handleCreateTasks = (newTasks) => {
     setTasks(newTasks);
-    // Simulate API call
+    // Имитация вызова API
     setTimeout(() => {
-      setApiResponse(`Tasks created successfully: ${newTasks.join(', ')}`);
+      setApiResponse(`Задачи успешно созданы: ${newTasks.join(', ')}`);
     }, 1000);
   };
 
@@ -39,39 +43,39 @@ function App() {
   );
 }
 
-// Header Component
+// Компонент "Шапка сайта"
 function Header({ onAuthClick, isAuthenticated }) {
   return (
     <header className="app-header">
-      <div className="logo">how-do</div>
+      <div className="logo">HowDo</div>
       <nav>
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
+        <a href="#features">Возможности</a>
+        <a href="#pricing">Цены</a>
+        <a href="#contact">Контакты</a>
       </nav>
       <button onClick={onAuthClick} className="auth-button">
-        {isAuthenticated ? 'Profile' : 'Sign In'}
+        {isAuthenticated ? 'Профиль' : 'Войти'}
       </button>
     </header>
   );
 }
 
-// Main Content Component
+// Компонент "Основной контент"
 function MainContent({ onWizardClick }) {
   return (
     <main className="main-content">
-      <h1>The fastest way to build your business</h1>
-      <p>Turn your business idea into a reality in minutes.</p>
-      <button onClick={onWizardClick} className="cta-button">Get Started for Free</button>
+      <h1>Самый быстрый способ построить ваш бизнес</h1>
+      <p>Превратите вашу бизнес-идею в реальность за считанные минуты.</p>
+      <button onClick={onWizardClick} className="cta-button">Начать бесплатно</button>
     </main>
   );
 }
 
-// Task List Component
+// Компонент "Список задач"
 function TaskList({ tasks }) {
     return (
         <div className="task-list-container">
-            <h2>Generated Tasks:</h2>
+            <h2>Сгенерированные задачи:</h2>
             <ul className="task-list">
                 {tasks.map((task, index) => (
                     <li key={index} className="task-item">{task}</li>
@@ -81,18 +85,18 @@ function TaskList({ tasks }) {
     );
 }
 
-// API Response Display Component
+// Компонент "Ответ API"
 function ApiResponseDisplay({ response }) {
     return (
         <div className="api-response-container">
-            <h2>API Response:</h2>
+            <h2>Ответ от сервера:</h2>
             <pre className="api-response-box">{response}</pre>
         </div>
     );
 }
 
 
-// Wizard Modal Component
+// Компонент "Мастер создания (Визард)"
 function WizardModal({ onClose, onCreateTasks }) {
   const [step, setStep] = useState(1);
   const [businessType, setBusinessType] = useState('');
@@ -103,13 +107,13 @@ function WizardModal({ onClose, onCreateTasks }) {
   const prevStep = () => setStep(step - 1);
 
   const handleGenerateTasks = () => {
-    // Simplified task generation logic
+    // Упрощенная логика генерации задач
     const generatedTasks = [
-      `Register domain for ${businessName}`,
-      `Set up hosting for ${businessType}`,
-      'Develop branding guidelines',
-      'Create social media accounts',
-      'Launch marketing campaign',
+      `Зарегистрировать домен для "${businessName}"`,
+      `Настроить хостинг для "${businessType}"`,
+      'Разработать брендбук',
+      'Создать аккаунты в социальных сетях',
+      'Запустить маркетинговую кампанию',
     ];
     setTasks(generatedTasks);
     nextStep();
@@ -133,13 +137,13 @@ function WizardModal({ onClose, onCreateTasks }) {
   );
 }
 
-// Wizard Steps
+// Шаги Визарда
 function Step1({ nextStep, setBusinessType }) {
   return (
     <div>
-      <h2>Step 1: What type of business are you starting?</h2>
-      <input type="text" placeholder="e.g., E-commerce, SaaS, Blog" onChange={(e) => setBusinessType(e.target.value)} />
-      <button onClick={nextStep}>Next</button>
+      <h2>Шаг 1: Какой тип бизнеса вы начинаете?</h2>
+      <input type="text" placeholder="Например, E-commerce, SaaS, Блог" onChange={(e) => setBusinessType(e.target.value)} />
+      <button onClick={nextStep}>Далее</button>
     </div>
   );
 }
@@ -147,10 +151,10 @@ function Step1({ nextStep, setBusinessType }) {
 function Step2({ nextStep, prevStep, setBusinessName }) {
   return (
     <div>
-      <h2>Step 2: What is the name of your business?</h2>
-      <input type="text" placeholder="e.g., My Awesome Shop" onChange={(e) => setBusinessName(e.target.value)} />
-      <button onClick={prevStep}>Back</button>
-      <button onClick={nextStep}>Next</button>
+      <h2>Шаг 2: Как называется ваш бизнес?</h2>
+      <input type="text" placeholder="Например, Мой Супер Магазин" onChange={(e) => setBusinessName(e.target.value)} />
+      <button onClick={prevStep}>Назад</button>
+      <button onClick={nextStep}>Далее</button>
     </div>
   );
 }
@@ -158,10 +162,10 @@ function Step2({ nextStep, prevStep, setBusinessName }) {
 function Step3({ prevStep, onGenerateTasks }) {
   return (
     <div>
-      <h2>Step 3: Generate Task List</h2>
-      <p>We will now generate a list of tasks to get your business started.</p>
-      <button onClick={prevStep}>Back</button>
-      <button onClick={onGenerateTasks}>Generate Tasks</button>
+      <h2>Шаг 3: Генерация списка задач</h2>
+      <p>Сейчас мы сгенерируем список задач для запуска вашего бизнеса.</p>
+      <button onClick={prevStep}>Назад</button>
+      <button onClick={onGenerateTasks}>Сгенерировать задачи</button>
     </div>
   );
 }
@@ -169,28 +173,28 @@ function Step3({ prevStep, onGenerateTasks }) {
 function Step4({ prevStep, onFinish, tasks }) {
   return (
     <div>
-      <h2>Step 4: Review Your Tasks</h2>
+      <h2>Шаг 4: Проверьте ваш список задач</h2>
       <ul>
         {tasks.map((task, index) => <li key={index}>{task}</li>)}
       </ul>
-      <button onClick={prevStep}>Back</button>
-      <button onClick={onFinish}>Create & Finish</button>
+      <button onClick={prevStep}>Назад</button>
+      <button onClick={onFinish}>Создать и завершить</button>
     </div>
   );
 }
 
 
-// Auth Modal Component
+// Компонент "Модальное окно аутентификации"
 function AuthModal({ onClose, onLogin }) {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <button onClick={onClose} className="close-button">&times;</button>
-        <h2>Sign In</h2>
-        <p>This is a placeholder for the authentication flow.</p>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <button onClick={onLogin}>Log In</button>
+        <h2>Вход в систему</h2>
+        <p>Это заглушка для процесса аутентификации.</p>
+        <input type="email" placeholder="Электронная почта" />
+        <input type="password" placeholder="Пароль" />
+        <button onClick={onLogin}>Войти</button>
       </div>
     </div>
   );
